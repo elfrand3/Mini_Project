@@ -29,6 +29,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
         holder.binding.tvDate.text = data.date
         Glide.with(holder.itemView.context)
             .load(data.poster)
+            .centerCrop()
             .into(holder.binding.ivPoster)
     }
 

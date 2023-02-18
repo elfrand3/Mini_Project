@@ -10,6 +10,7 @@ interface MainContract {
     }
     interface View {
         fun initActivity()
+        fun initListener()
         fun onMessage(Message: String)
         fun setData(response: List<ApiResponse>)
         fun setGenre(genre: List<GenreResponse>)

@@ -1,5 +1,6 @@
 package com.elcodee.miniproject.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -36,6 +37,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.rvGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMovie.adapter = adapter
         binding.rvGenre.adapter = genreAdapter
+    }
+
+    override fun initListener() {
+        binding.fbAdd.setOnClickListener {
+            startActivity(Intent(this@MainActivity, PostActivity::class.java))
+        }
     }
 
     override fun onMessage(Message: String) {

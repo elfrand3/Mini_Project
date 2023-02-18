@@ -11,6 +11,7 @@ import retrofit2.Response
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     init {
         view.initActivity()
+        view.initListener()
     }
     override fun getMovie() {
         ApiService.getInstance().getMovie().enqueue(object : Callback<List<ApiResponse>>{
