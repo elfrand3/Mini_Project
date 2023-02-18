@@ -27,13 +27,13 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_edit"
-                android:id="@+id/btn_update"/>
+                android:id="@+id/iv_update"/>
             <ImageView
                 android:layout_marginTop="10dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_delete"
-                android:id="@+id/btn_delete"/>
+                android:id="@+id/iv_delete"/>
         </LinearLayout>
 
     </LinearLayout>

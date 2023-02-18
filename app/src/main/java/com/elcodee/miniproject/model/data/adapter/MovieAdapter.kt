@@ -3,10 +3,15 @@ package com.elcodee.miniproject.model.data.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elcodee.miniproject.databinding.ListItemBinding
+import com.elcodee.miniproject.model.data.network.ApiService
 import com.elcodee.miniproject.model.data.response.ApiResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
     private val listMovie = ArrayList<ApiResponse>()
@@ -31,6 +36,22 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
             .load(data.poster)
             .centerCrop()
             .into(holder.binding.ivPoster)
+
+        holder.binding.ivDelete.setOnClickListener {
+            ApiService.getInstance().deleteMovie(data.id).enqueue(object : Callback<ApiResponse>{
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                    if (response.isSuccessful){
+                        Toast.makeText(holder.itemView.context, "success", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(holder.itemView.context, "gagal", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    Toast.makeText(holder.itemView.context, "$t", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     override fun getItemCount() = listMovie.size
