@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcodee.miniproject.R
 import com.elcodee.miniproject.databinding.ActivityMainBinding
 import com.elcodee.miniproject.model.contract.MainContract
+import com.elcodee.miniproject.model.data.adapter.GenreAdapter
 import com.elcodee.miniproject.model.data.adapter.MovieAdapter
 import com.elcodee.miniproject.model.data.response.ApiResponse
+import com.elcodee.miniproject.model.data.response.GenreResponse
 import com.elcodee.miniproject.presenter.MainPresenter
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     var adapter = MovieAdapter()
+    var genreAdapter = GenreAdapter()
     private lateinit var presenter: MainPresenter
     private val binding: ActivityMainBinding by lazy{
         ActivityMainBinding.inflate(layoutInflater)
@@ -24,13 +27,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         presenter = MainPresenter(this)
         presenter.getMovie()
+        presenter.getGenre()
     }
 
     override fun initActivity() {
         supportActionBar?.hide()
-//        binding.rvMovie.layoutManager = LinearLayoutManager(this)
         binding.rvMovie.layoutManager = GridLayoutManager(this, 2)
+        binding.rvGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMovie.adapter = adapter
+        binding.rvGenre.adapter = genreAdapter
     }
 
     override fun onMessage(Message: String) {
@@ -40,5 +45,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun setData(response: List<ApiResponse>) {
         val r = response
         adapter.setData(r)
+    }
+
+    override fun setGenre(genre: List<GenreResponse>) {
+        val g = genre
+        genreAdapter.setGenre(g)
+
     }
 }
