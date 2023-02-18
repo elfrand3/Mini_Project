@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/bg_border">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,9 +15,9 @@
 
         <ImageView
             android:id="@+id/iv_poster"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:background="@drawable/ic_launcher_background"/>
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/bg_border"/>
 
         <LinearLayout
             android:layout_marginStart="5dp"
@@ -34,16 +36,18 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_delete"
                 android:id="@+id/iv_delete"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:id="@+id/tv_id"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:textStyle="bold"
+                android:text="ID"/>
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Id"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -131,4 +135,5 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            android:text="Date"/>-->
 <!--    </LinearLayout>-->
+
 </LinearLayout>

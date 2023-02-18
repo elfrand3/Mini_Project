@@ -34,6 +34,7 @@ class PostActivity : AppCompatActivity(), PostContract.View {
             data.addProperty("negara", binding.etNegara.text.toString())
 //            data.addProperty("date", binding.etDate.text.toString())
             presenter.postMovie(data)
+            finish()
         }
         binding.ivBack.setOnClickListener {
             onBackPressed()

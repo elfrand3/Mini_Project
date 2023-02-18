@@ -12,7 +12,7 @@ interface MainContract {
         fun initActivity()
         fun initListener()
         fun onMessage(Message: String)
-        fun onLoading(loading: Boolean)
+//        fun onLoading(loading: Boolean)
         fun setData(response: List<ApiResponse>)
         fun setGenre(genre: List<GenreResponse>)
     }

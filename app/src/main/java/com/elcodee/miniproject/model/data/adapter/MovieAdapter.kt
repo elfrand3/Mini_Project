@@ -1,6 +1,7 @@
 package com.elcodee.miniproject.model.data.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.elcodee.miniproject.databinding.ListItemBinding
 import com.elcodee.miniproject.model.data.network.ApiService
 import com.elcodee.miniproject.model.data.response.ApiResponse
+import com.elcodee.miniproject.view.PostActivity
+import com.elcodee.miniproject.view.PutActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +39,17 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
             .load(data.poster)
             .centerCrop()
             .into(holder.binding.ivPoster)
+
+        holder.binding.ivUpdate.setOnClickListener {
+            val i = Intent(holder.itemView.context, PutActivity::class.java)
+            i.putExtra("id", data.id)
+            i.putExtra("na", data.nama_movie)
+            i.putExtra("ge", data.genre)
+            i.putExtra("pe", data.pemeran)
+            i.putExtra("su", data.sutradara)
+            i.putExtra("ne", data.negara)
+            holder.itemView.context.startActivity(i)
+        }
 
         holder.binding.ivDelete.setOnClickListener {
             ApiService.getInstance().deleteMovie(data.id).enqueue(object : Callback<ApiResponse>{

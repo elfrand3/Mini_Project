@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this@MainActivity, Message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onLoading(loading: Boolean) {
-        binding.slRefresh.isRefreshing = loading
-    }
+//    override fun onLoading(loading: Boolean) {
+//        binding.slRefresh.isRefreshing = loading
+//    }
 
     override fun setData(response: List<ApiResponse>) {
         val r = response

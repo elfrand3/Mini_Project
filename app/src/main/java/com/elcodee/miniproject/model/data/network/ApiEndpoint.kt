@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiEndpoint {
@@ -20,6 +21,12 @@ interface ApiEndpoint {
     @POST("movie")
     fun postMovie(
         @Body data: JsonObject
+    ): Call<ApiResponse>
+
+    @PUT("movie/{id}")
+    fun putMovie(
+        @Path("id") id: String,
+        @Body up: JsonObject
     ): Call<ApiResponse>
 
     @DELETE("movie/{id}")
