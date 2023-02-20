@@ -14,33 +14,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="Genre Movie"
             android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_genre"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            tools:listitem="@layout/list_genre"
-            android:id="@+id/rv_genre"/>
+            tools:listitem="@layout/list_genre" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="Match Movie"
             android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sf_movie">
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="5dp"
                 android:id="@+id/rv_movie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/list_item"/>
+                android:layout_marginTop="5dp"
+                tools:listitem="@layout/list_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
@@ -51,8 +56,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_plus"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

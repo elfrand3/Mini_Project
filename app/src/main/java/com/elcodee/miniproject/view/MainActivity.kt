@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter = MainPresenter(this)
         presenter.getMovie()
         presenter.getGenre()
+
     }
 
     override fun initActivity() {
@@ -43,15 +44,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.fbAdd.setOnClickListener {
             startActivity(Intent(this@MainActivity, PostActivity::class.java))
         }
+        binding.sfMovie.setOnRefreshListener {
+            presenter.getMovie()
+        }
     }
 
     override fun onMessage(Message: String) {
         Toast.makeText(this@MainActivity, Message, Toast.LENGTH_SHORT).show()
     }
 
-//    override fun onLoading(loading: Boolean) {
-//        binding.slRefresh.isRefreshing = loading
-//    }
+    override fun onLoading(loading: Boolean) {
+        binding.sfMovie.isRefreshing = loading
+    }
 
     override fun setData(response: List<ApiResponse>) {
         val r = response

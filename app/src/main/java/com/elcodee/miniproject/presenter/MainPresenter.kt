@@ -14,6 +14,7 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
         view.initListener()
     }
     override fun getMovie() {
+        view.onLoading(true)
         ApiService.getInstance().getMovie().enqueue(object : Callback<List<ApiResponse>>{
             override fun onResponse(
                 call: Call<List<ApiResponse>>,
@@ -22,11 +23,13 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 if (response.isSuccessful){
                     val responseApi =  response.body()
                     view.setData(responseApi!!)
+                    view.onLoading(false)
                 }
             }
 
             override fun onFailure(call: Call<List<ApiResponse>>, t: Throwable) {
                 view.onMessage("$t")
+                view.onLoading(false)
             }
         })
     }
