@@ -1,5 +1,6 @@
 package com.elcodee.miniproject.presenter
 
+import android.widget.Toast
 import com.elcodee.miniproject.model.contract.MainContract
 import com.elcodee.miniproject.model.data.network.ApiService
 import com.elcodee.miniproject.model.data.response.ApiResponse
@@ -47,6 +48,24 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
             }
 
             override fun onFailure(call: Call<List<GenreResponse>>, t: Throwable) {
+                view.onMessage("$t")
+            }
+        })
+    }
+
+    override fun movieDelete(id: String) {
+        ApiService.getInstance().deleteMovie(id).enqueue(object : Callback<ApiResponse>{
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.isSuccessful){
+                    view.onMessage("Delete Success")
+                    view.dlLoading(false)
+                }else{
+                    view.onMessage("Delete Success")
+                    view.dlLoading(true)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 view.onMessage("$t")
             }
         })

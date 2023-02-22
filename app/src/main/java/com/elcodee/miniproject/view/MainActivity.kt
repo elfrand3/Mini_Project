@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcodee.miniproject.R
@@ -47,10 +48,35 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.sfMovie.setOnRefreshListener {
             presenter.getMovie()
         }
+
+        adapter.setOncItemClickListener(object : MovieAdapter.onItemClickListiner{
+            override fun onItemClick(id: String) {
+                val alert = AlertDialog.Builder(this@MainActivity)
+                alert.setTitle(R.string.H)
+                alert.setMessage(R.string.c)
+                alert.setPositiveButton("Yes"){_, _ ->
+                    presenter.movieDelete(id)
+                }
+                alert.setNegativeButton("No"){_, _ ->
+
+                }
+
+                val tampil : AlertDialog = alert.create()
+                tampil.setCancelable(false)
+                tampil.show()
+            }
+        })
     }
 
     override fun onMessage(Message: String) {
         Toast.makeText(this@MainActivity, Message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun dlLoading(refresh: Boolean) {
+        if (refresh == false){
+            presenter.getMovie()
+            binding.sfMovie.isRefreshing = false
+        }
     }
 
     override fun onLoading(loading: Boolean) {

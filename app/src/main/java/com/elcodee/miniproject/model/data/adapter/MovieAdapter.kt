@@ -18,12 +18,23 @@ import retrofit2.Response
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
     private val listMovie = ArrayList<ApiResponse>()
-    class myviewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var mClick: onItemClickListiner
+
+    interface onItemClickListiner {
+        fun onItemClick(id: String)
+    }
+    fun setOncItemClickListener(listener: onItemClickListiner){
+        mClick = listener
+    }
+    class myviewHolder(val binding: ListItemBinding, listiner: onItemClickListiner):
+        RecyclerView.ViewHolder(binding.root) {
+        val listener = listiner
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myviewHolder {
         val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return myviewHolder(binding)
+        return myviewHolder(binding, mClick)
     }
 
     override fun onBindViewHolder(holder: myviewHolder, position: Int) {
@@ -40,6 +51,10 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
             .centerCrop()
             .into(holder.binding.ivPoster)
 
+        holder.binding.ivDelete.setOnClickListener {
+            holder.listener.onItemClick(data.id)
+        }
+
         holder.binding.ivUpdate.setOnClickListener {
             val i = Intent(holder.itemView.context, PutActivity::class.java)
             i.putExtra("id", data.id)
@@ -51,21 +66,21 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.myviewHolder>() {
             holder.itemView.context.startActivity(i)
         }
 
-        holder.binding.ivDelete.setOnClickListener {
-            ApiService.getInstance().deleteMovie(data.id).enqueue(object : Callback<ApiResponse>{
-                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                    if (response.isSuccessful){
-                        Toast.makeText(holder.itemView.context, "success", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(holder.itemView.context, "gagal", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                    Toast.makeText(holder.itemView.context, "$t", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
+//        holder.binding.ivDelete.setOnClickListener {
+//            ApiService.getInstance().deleteMovie(data.id).enqueue(object : Callback<ApiResponse>{
+//                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+//                    if (response.isSuccessful){
+//                        Toast.makeText(holder.itemView.context, "success", Toast.LENGTH_SHORT).show()
+//                    }else{
+//                        Toast.makeText(holder.itemView.context, "gagal", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+//                    Toast.makeText(holder.itemView.context, "$t", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+//        }
     }
 
     override fun getItemCount() = listMovie.size
